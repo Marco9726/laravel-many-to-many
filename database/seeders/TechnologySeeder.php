@@ -19,7 +19,7 @@ class TechnologySeeder extends Seeder
 		for ($i = 0; $i < 10; $i++) {
 			$newTechnology = new Technology();
 
-			$newTechnology->name = $faker->sentence(3); //creo un stringa con 3 parole casuali
+			$newTechnology->name = $faker->sentence(1); //creo un stringa con parole casuali
 			$newTechnology->slug = Technology::generateSlug($newTechnology->name); //genero lo slug del name tramite funzione creata nel Model
 
 			$newTechnology->save();
