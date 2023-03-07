@@ -17,6 +17,7 @@ class Type extends Model
 	{
 		return Str::slug($name, '-');
 	}
+	//ONE TO MANY
 	//Nel Model principale inseriamo una funzione con un nome che identifichi la relazione con l’altra tabella.
 	public function projects()
 	{

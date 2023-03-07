@@ -25,12 +25,12 @@
 			<form action="{{ route('admin.projects.store')}}" method="POST">
 				@csrf
 				{{-- TITLE --}}
-				<div class="form-group mb-3">
+				<div class="form-group">
 					<label for="inputTitle" class="control-label mb-1">Titolo</label>
 					<input type="text" id="inputTitle" class="form-control" placeholder="Titolo" name="title">
 				</div>
 				{{-- TYPE_ID  --}}
-				<div class="form-group">
+				<div class="form-group my-3">
 					<label for="chooseType" class="control-label mb-1">Linguaggio</label>
 					<select id="chooseType" class="form-control" name="type_id"> {{--attributo name = nome della colonna--}}
 						<option value="">Seleziona linguaggio</option>
@@ -39,6 +39,14 @@
 							<option value="{{ $type->id }}">{{ $type->name }}</option>
 						@endforeach
 					</select>
+				</div>
+				{{-- TECHNOLOGIES  --}}
+				<div class="form-group my-3">
+					<div class="control-label mb-1">Tecnologie</div>
+					@foreach ($technologies as $technology)
+						<input type="checkbox" value="{{ $technology->id }}" name="technologies[]"> {{--il name è un array, perché potrà contenere più checkbox flaggate--}}
+						<label class="form-check-label me-2">{{ $technology->name }}</label>
+					@endforeach
 				</div>
 				{{-- DESCRIPTION --}}
 				<div class="form-group">

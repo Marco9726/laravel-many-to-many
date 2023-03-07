@@ -20,7 +20,8 @@ return new class extends Migration
 			//2-CREAZIONE FOREIGN KEY
 			$table->foreign('project_id') //<---...CON QUESTO
 				->references('id') //NOME DELLA COLONNA...
-				->on('projects'); //...DELLA TABELLA DI RIFERIMENTO
+				->on('projects') //...DELLA TABELLA DI RIFERIMENTO
+				->cascadeOnDelete();
 
 
 			//1-CREAZIONE COLONNA PER LA TECHNOLOGY
@@ -28,7 +29,8 @@ return new class extends Migration
 			//2-CREAZIONE FOREIGN KEY
 			$table->foreign('technology_id') //<---...CON QUESTO
 				->references('id') //NOME DELLA COLONNA...
-				->on('technologies'); //...DELLA TABELLA DI RIFERIMENTO
+				->on('technologies') //...DELLA TABELLA DI RIFERIMENTO
+				->cascadeOnDelete();
 
 			$table->timestamps();
 		});
