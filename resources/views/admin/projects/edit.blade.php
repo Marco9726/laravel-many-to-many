@@ -39,6 +39,22 @@
 						@endforeach
 					</select>
 				</div>
+				{{-- TECHNOLOGIES  --}}
+				<div class="form-group my-3">
+					<div class="control-label mb-1">Tecnologie</div>
+					{{-- ciclo le tecnologie --}}
+					@foreach ($technologies as $technology)
+						@if($errors->any())
+						{{-- PRIMO CASO: Errori di modifica, visualizzo le check selezionate  e ne evidenzio gli error--}}
+						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('title') is-invalid @enderror" name="technologies[]" {{ in_array( $technology->id, old('technologies', []) ? 'checked' : '') }}>
+						<label class="form-check-label me-2 @error('title') is-invalid @enderror">{{ $technology->name }}</label>
+						@else
+						{{--SECONDO CASO: Pagina edit appena aperta, mostro le check attualmente associate al project --}}
+						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('title') is-invalid @enderror" name="technologies[]" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+						<label class="form-check-label me-2 @error('title') is-invalid @enderror">{{ $technology->name }}</label>
+						@endif
+					@endforeach
+				</div>
 				{{-- DESCRIPTION --}}
 				<div class="form-group">
 					<label for="inputText" class="control-label mb-1">Descrizione</label>

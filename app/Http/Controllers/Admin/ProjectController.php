@@ -55,6 +55,10 @@ class ProjectController extends Controller
 		$newProject->save();
 		//QUESTE TRE OPERAZIONE CORRISPONDONO A:
 		// $newProject = Project::create($form_data); 
+
+		if ($request->has('technologies')) {
+			$newProject->technologies()->attach($request->technologies);
+		}
 		return redirect()->route('admin.projects.index')->with('message', 'Progetto creato correttamente'); //passo alla view anche la variabile message
 	}
 
@@ -78,8 +82,9 @@ class ProjectController extends Controller
 	public function edit(Project $project)
 	{
 		$types = Type::all();
+		$technologies = Technology::all();
 
-		return view('admin.projects.edit', compact('project', 'types'));
+		return view('admin.projects.edit', compact('project', 'types', 'technologies'));
 	}
 
 	/**
@@ -98,6 +103,11 @@ class ProjectController extends Controller
 		$form_data['slug'] = $slug;
 
 		$project->update($form_data);
+
+		if ($request->has('technologies')) {
+			//tremite la funzione synch(), passiamo un array di id che vengono confontranti con quelli nel db: elimina dal db quelli assenti dall'array, lascia quelli presenti e ne aggiunge quelli non presenti nel db
+			$project->technologies()->synch($request->technologies);
+		}
 
 		return redirect()->route('admin.projects.index')->with('message', 'Progetto ' . $project->title . ' è stato modificato correttamente');
 	}
