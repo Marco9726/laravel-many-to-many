@@ -13,6 +13,18 @@
 		<div class="col-12">
 			<p><strong>Slug: </strong>{{ $project->slug }}</p>
 			<p><strong>Linguaggio: </strong>{{ $project->type ? $project->type->name : 'Non specificato' }}</p>
+			<p><strong>Tecnologie: </strong>
+				{{-- se sono presenti, ciclo le tecnologie  --}}
+				@forelse ($project->technologies as $technology)
+					@if (!$loop->last) {{--se non sono nell'ultima iterazione, aggiungo una virgola dopo il valore ciclato--}}
+						{{ $technology->name }},
+					@else 
+						{{ $technology->name }}
+					@endif
+				@empty
+					Non ci sono tecnologie associate
+				@endforelse
+			</p>
 			<p><strong>Descrizione: </strong>{{ $project->description }}</p>
 		</div>
 	</div>

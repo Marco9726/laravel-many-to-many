@@ -105,7 +105,7 @@ class ProjectController extends Controller
 		$project->update($form_data);
 
 		if ($request->has('technologies')) {
-			//tremite la funzione sync(), passiamo un array di id che vengono confontranti con quelli nel db: elimina dal db quelli assenti dall'array, lascia quelli presenti e ne aggiunge quelli non presenti nel db
+			//tramite la funzione sync(), passiamo un array di id che vengono confontranti con quelli nel db: elimina dal db quelli assenti nell'array, lascia quelli presenti e ne aggiunge quelli non presenti nel db
 			$project->technologies()->sync($request->technologies);
 		}
 
@@ -120,6 +120,9 @@ class ProjectController extends Controller
 	 */
 	public function destroy(Project $project)
 	{
+		//!-1):CANCELLARE PRIMA I RECORD NELLA TABELLA PIVOT (funzione già svolta dai metodi cascateOnDelete() dichiaricati nella migrations della tabella pivot)
+		$project->technologies->sync([]);
+
 		$project->delete();
 
 		return redirect()->route('admin.projects.index')->with('message', 'Progetto ' . $project->title . ' è stato eliminato');
