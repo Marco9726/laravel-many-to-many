@@ -105,8 +105,8 @@ class ProjectController extends Controller
 		$project->update($form_data);
 
 		if ($request->has('technologies')) {
-			//tremite la funzione synch(), passiamo un array di id che vengono confontranti con quelli nel db: elimina dal db quelli assenti dall'array, lascia quelli presenti e ne aggiunge quelli non presenti nel db
-			$project->technologies()->synch($request->technologies);
+			//tremite la funzione sync(), passiamo un array di id che vengono confontranti con quelli nel db: elimina dal db quelli assenti dall'array, lascia quelli presenti e ne aggiunge quelli non presenti nel db
+			$project->technologies()->sync($request->technologies);
 		}
 
 		return redirect()->route('admin.projects.index')->with('message', 'Progetto ' . $project->title . ' è stato modificato correttamente');
