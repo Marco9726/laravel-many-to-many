@@ -25,9 +25,9 @@
 			<form action="{{ route('admin.projects.store')}}" method="POST">
 				@csrf
 				{{-- TITLE --}}
-				<div class="form-group @error('title') is-invalid @enderror">
-					<label for="inputTitle" class="control-label mb-1">Titolo</label>
-					<input type="text" id="inputTitle" class="form-control" placeholder="Titolo" name="title">
+				<div class="form-group">
+					<label for="inputTitle" class="control-label mb-1 @error('title') text-danger @enderror">Titolo</label>
+					<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" placeholder="Titolo" name="title">
 				</div>
 				{{-- TYPE_ID  --}}
 				<div class="form-group my-3">
@@ -45,8 +45,8 @@
 					<div class="control-label mb-1">Tecnologie</div>
 					{{-- ciclo le tecnologie --}}
 					@foreach ($technologies as $technology)
-						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('title') is-invalid @enderror" name="technologies[]"> {{--il name è un array, perché potrà contenere più checkbox flaggate--}}
-						<label class="form-check-label me-2 @error('title') is-invalid @enderror">{{ $technology->name }}</label>
+						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('technologies') is-invalid @enderror" name="technologies[]"> {{--il name è un array, perché potrà contenere più checkbox flaggate--}}
+						<label class="form-check-label me-2 @error('technologies') is-invalid @enderror">{{ $technology->name }}</label>
 					@endforeach
 				</div>
 				{{-- DESCRIPTION --}}

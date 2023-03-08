@@ -25,8 +25,8 @@
 				@method('PUT')
 				{{-- TITLE --}}
 				<div class="form-group mb-3">
-					<label for="inputTitle" class="control-label mb-1">Titolo</label>
-					<input type="text" id="inputTitle" class="form-control" placeholder="Titolo" name="title" value="{{ old('title') ?? $project->title }}">
+					<label for="inputTitle" class="control-label mb-1 @error('title') text-danger @enderror">Titolo</label>
+					<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" placeholder="Titolo" name="title" value="{{ old('title') ?? $project->title }}">
 				</div>
 				{{-- TYPE_ID --}}
 				<div class="form-group">
@@ -45,13 +45,13 @@
 					{{-- ciclo le tecnologie --}}
 					@foreach ($technologies as $technology)
 						@if($errors->any())
-						{{-- PRIMO CASO: Errori di modifica, visualizzo le check selezionate  e ne evidenzio gli error--}}
-						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('title') is-invalid @enderror" name="technologies[]" {{ in_array( $technology->id, old('technologies', []) ? 'checked' : '') }}>
-						<label class="form-check-label me-2 @error('title') is-invalid @enderror">{{ $technology->name }}</label>
+						{{-- PRIMO CASO: Errori di modifica, visualizzo le check selezionate  e ne evidenzio gli errori--}}
+						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('technologies') is-invalid @enderror" name="technologies[]" {{ in_array( $technology->id, old('technologies', [])) ? 'checked' : '' }}>
+						<label class="form-check-label me-2 @error('technologies') is-invalid @enderror">{{ $technology->name }}</label>
 						@else
 						{{--SECONDO CASO: Pagina edit appena aperta, mostro le check attualmente associate al project --}}
-						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('title') is-invalid @enderror" name="technologies[]" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
-						<label class="form-check-label me-2 @error('title') is-invalid @enderror">{{ $technology->name }}</label>
+						<input type="checkbox" value="{{ $technology->id }}" class="form-check-input @error('technologies') is-invalid @enderror" name="technologies[]" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+						<label class="form-check-label me-2 @error('technologies') is-invalid @enderror">{{ $technology->name }}</label>
 						@endif
 					@endforeach
 				</div>
